@@ -1,0 +1,14 @@
+Section 15: Passing Parameter - Answers
+1. Why do the titles of the two objects remain the same after calling the swap method?
+
+Answer: This happens because Java is strictly Pass-by-Value. When you pass an object to a method, Java creates a copy of the reference (the memory address) and passes that copy to the method.
+
+Inside the swap(Object o1, Object o2) method, the variables o1 and o2 are merely local copies of the original references. When you swap them, you are only rearranging these local copies. Once the method execution finishes, these local copies are destroyed. The original references in the main method remain unchanged, still pointing to their original objects.
+
+2. Why does the changeTitle method change the title of the JungleDVD?
+
+Answer: Although the reference dvd inside the method is a copy, it still points to the exact same object in the Heap memory as the original reference in the main method.
+
+When the method calls dvd.setTitle(title), it follows that reference to the actual object and modifies its internal data. This change is persistent because the object itself has been altered.
+
+Note: The subsequent line dvd = new DigitalVideoDisc(oldTitle) only reassigns the local copied reference to a new object. This reassignment does not affect the original reference in the main method or undo the change previously made to the original object's title.
