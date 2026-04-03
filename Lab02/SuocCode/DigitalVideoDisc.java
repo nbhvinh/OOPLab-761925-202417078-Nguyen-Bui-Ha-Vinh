@@ -32,4 +32,8 @@ public class DigitalVideoDisc {
     public int getLength() { return length; }
     public float getCost() { return cost; }
     public int getId() { return id; }
+    
+    public boolean isMatch(String title) {
+        return this.title.toLowerCase().contains(title.toLowerCase());
+    }
 }
