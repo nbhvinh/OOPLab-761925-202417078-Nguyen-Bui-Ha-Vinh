@@ -1,0 +1,25 @@
+Section 15: Unique item in a list
+
+Question: If the passing object is not an instance of Media, what happens? 
+
+Answer: If the object is not an instance of Media, the instanceof check (or getClass() check) will return false, and the equals() method will return false. This prevents a ClassCastException and correctly identifies that the objects are not equal .
+
+Section 17: Sort media in the cart (Comparable questions)
+
+Q1: What class should implement Comparable? 
+
+Answer: The Media class should implement Comparable<Media> so that all its subclasses inherit the comparison ability.
+
+Q2: In those classes, how should you implement the compareTo()method to reflect the ordering that
+we want?
+
+Answer: It should compare titles alphabetically first; if titles are identical, compare costs (e.g., higher cost first) .
+
+Q3:  Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach? 
+
+Answer: No. Comparable defines the "natural ordering" and can only provide one implementation of compareTo(). To have multiple rules, we must use Comparator .
+
+Q4: Suppose the DVDs have a different ordering rule from the other media types, that is by title, then
+decreasing length, then cost. How would you modify your code to allow this?
+
+Answer: We would need to override the compareTo() method specifically inside the DigitalVideoDisc class to implement its unique sorting logic (title, then length, then cost) .
