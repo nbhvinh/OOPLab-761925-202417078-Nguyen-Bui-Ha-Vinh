@@ -1,0 +1,25 @@
+Câu hỏi 1: So sánh các container cấp cao nhất (top-level containers) trong Swing và AWT.
+
+	- Trong AWT, các container cấp cao nhất như 'Frame' tương tác trực tiếp với hệ thống cửa sổ (windowing system) gốc của hệ điều hành. Các thành phần (components) được add trực tiếp vào đối tượng Frame.
+	- Trong Swing, các container cấp cao nhất được đặt thêm tiền tố 'J' (chẳng hạn như 'JFrame', 'JDialog', và 'JApplet'). Khác với AWT, các JComponent nhẹ (lightweight) không thể được add trực tiếp lên container cấp cao nhất. Chúng phải được add vào 'content-pane' của container (thông qua hàm getContentPane()), nơi quản lý bố cục và nhóm các thành phần lại với nhau.
+
+
+
+Câu hỏi 2: So sánh tên lớp của các thành phần trong AWT và tên lớp tương ứng trong Swing.
+
+	- Các lớp thành phần của AWT được đặt tên trực tiếp theo vai trò chức năng giao diện tiêu chuẩn của chúng, ví dụ như 'Label', 'Button', 'TextField', 'TextArea', và 'Panel'.
+	- Các thành phần trong Swing tương ứng rất sát với các phần tử AWT nhưng được thêm tiền tố là chữ 'J' để biểu thị chúng thuộc thư viện mở rộng Swing. Ví dụ bao gồm 'JLabel', 'JButton', 'JTextField', 'JTextArea', và 'JPanel'. Tất cả các thành phần Swing nhẹ này đều kế thừa từ lớp cơ sở 'JComponent'.
+
+
+
+Câu hỏi 3: So sánh việc xử lý sự kiện (event-handling) của ứng dụng Swing và AWT.
+
+	- Việc triển khai cơ chế xử lý sự kiện về mặt kiến trúc là hoàn toàn giống nhau giữa ứng dụng AWT và Swing. Cả hai framework đều sử dụng mô hình Ủy quyền Sự kiện (Delegation Event Model) được thiết lập trong package 'java.awt.event'.
+	- Chúng dùng chung các interface lắng nghe (như 'ActionListener') và các đối tượng sự kiện (như 'ActionEvent'). Cấu trúc mã nguồn để gắn bộ lắng nghe vào các thành phần bằng cách sử dụng inner class, anonymous class hay lambda expression đều giữ nguyên không thay đổi.
+
+
+
+Câu hỏi 4: So sánh kết quả giao diện/ngoại quan (appearances) của các ứng dụng được phát triển bằng Swing và AWT.
+
+	- Các thành phần AWT là các thành phần "nặng" (heavyweight). Chúng phụ thuộc hoàn toàn vào các thành phần giao diện gốc (native GUI peers) của nền tảng máy chủ để hiển thị. Do đó, một ứng dụng AWT trông sẽ giống một ứng dụng Windows gốc trên hệ điều hành Windows và giống một ứng dụng Mac gốc trên macOS, dẫn đến trải nghiệm hình ảnh không đồng nhất giữa các hệ điều hành khác nhau.
+	- Các thành phần Swing là các thành phần "nhẹ" (lightweight) được viết hoàn toàn bằng Java. Chúng không phụ thuộc vào các thành phần gốc của OS để hiển thị. Swing hỗ trợ kiến trúc giao diện có thể thay đổi linh hoạt (Pluggable Look and Feel - PLAF), cho phép giao diện người dùng duy trì một ngoại quan hoàn toàn đồng nhất và giống hệt nhau trên mọi nền tảng triển khai.

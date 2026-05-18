@@ -1,4 +1,5 @@
 package hust.soict.hedspi.aims.screen.manager;
+
 import hust.soict.hedspi.aims.media.*;
 import hust.soict.hedspi.aims.store.*;
 
@@ -25,6 +26,21 @@ class MediaStore extends JPanel {
 
         if (media instanceof Playable) {
             JButton playButton = new JButton("Play");
+            playButton.addActionListener(e -> {
+                Window ancestor = SwingUtilities.getWindowAncestor(this);
+                JDialog dialog = new JDialog((Frame) ancestor, "Playing Media", true);
+                dialog.setLayout(new FlowLayout());
+                
+                dialog.add(new JLabel("Now playing: " + media.getTitle()));
+                
+                JButton btnClose = new JButton("Close");
+                btnClose.addActionListener(evt -> dialog.dispose());
+                dialog.add(btnClose);
+                
+                dialog.setSize(300, 150);
+                dialog.setLocationRelativeTo(ancestor);
+                dialog.setVisible(true);
+            });
             container.add(playButton);
         }
 
@@ -53,6 +69,7 @@ public class StoreManagerScreen extends JFrame {
         setTitle("Store");
         setSize(1024, 768);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -67,12 +84,35 @@ public class StoreManagerScreen extends JFrame {
     JMenuBar createMenuBar() {
         JMenu menu = new JMenu("Options");
 
-        menu.add(new JMenuItem("View store"));
+        JMenuItem viewStoreItem = new JMenuItem("View store");
+        viewStoreItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "You are already viewing the store.");
+        });
+        menu.add(viewStoreItem);
 
         JMenu smUpdateStore = new JMenu("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));
+        
+        JMenuItem addBookItem = new JMenuItem("Add Book");
+        addBookItem.addActionListener(e -> {
+            new AddBookToStoreScreen(store);
+            this.dispose();
+        });
+        
+        JMenuItem addCDItem = new JMenuItem("Add CD");
+        addCDItem.addActionListener(e -> {
+            new AddCompactDiscToStoreScreen(store);
+            this.dispose(); 
+        });
+        
+        JMenuItem addDVDItem = new JMenuItem("Add DVD");
+        addDVDItem.addActionListener(e -> {
+            new AddDigitalVideoDiscToStoreScreen(store); 
+            this.dispose(); 
+        });
+
+        smUpdateStore.add(addBookItem);
+        smUpdateStore.add(addCDItem);
+        smUpdateStore.add(addDVDItem);
         menu.add(smUpdateStore);
 
         JMenuBar menuBar = new JMenuBar();
@@ -110,8 +150,6 @@ public class StoreManagerScreen extends JFrame {
 
         return center;
     }
-    
-    
 
     public static void main(String[] args) {
         Store store = new Store();
@@ -152,6 +190,4 @@ public class StoreManagerScreen extends JFrame {
 
         new StoreManagerScreen(store);
     }
-    
-    
 }
